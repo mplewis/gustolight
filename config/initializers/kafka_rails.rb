@@ -4,7 +4,7 @@
 # Kafka::Datadog.namespace = 'lightwell.kafka'
 # Kafka::Datadog.host = ENV['DATADOG_AGENT_HOST']
 # Kafka::Datadog.port = ENV['DATADOG_AGENT_PORT']
-require 'payroll_event'
+require_dependency 'payroll_event'
 
 KafkaRails.configure do |config|
   # config.enabled      = Config.kafka.enabled
