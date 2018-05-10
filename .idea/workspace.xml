@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="33a8cfad-bbdf-4849-9cab-9b9a9fb5d394" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/payroll_event.rb" afterPath="$PROJECT_DIR$/app/models/payroll_event.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/kafka_rails.rb" afterPath="$PROJECT_DIR$/config/initializers/kafka_rails.rb" />
     </list>
     <ignored path="growth_foundation_service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -88,8 +86,8 @@
       <file leaf-file-name="payroll_event.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/payroll_event.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="81" selection-start-line="14" selection-start-column="81" selection-end-line="14" selection-end-column="81" />
+            <state relative-caret-position="330">
+              <caret line="22" column="33" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -615,12 +613,12 @@
       <workItem from="1525914533139" duration="1149000" />
       <workItem from="1525917139757" duration="44000" />
       <workItem from="1525917193668" duration="890000" />
-      <workItem from="1525918357401" duration="3814000" />
+      <workItem from="1525918357401" duration="3980000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5897000" />
+    <option name="totallyTimeSpent" value="6063000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
@@ -872,8 +870,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/payroll_event.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="81" selection-start-line="14" selection-start-column="81" selection-end-line="14" selection-end-column="81" />
+        <state relative-caret-position="330">
+          <caret line="22" column="33" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="33" />
           <folding />
         </state>
       </provider>

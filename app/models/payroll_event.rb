@@ -4,6 +4,7 @@ class PayrollEvent < ApplicationRecord
   consume_from_kafka KAFKA_TOPIC
 
   PROCESSING_STATUSES = ['Processed', 'Processed and Unfunded'].freeze
+  MINUTES_GAP = 5
 
   def self.consume(topic, message)
     payroll_processing_last_modified = message['payroll_processing_last_modified'] && DateTime.parse(message['payroll_processing_last_modified'])
@@ -19,7 +20,7 @@ class PayrollEvent < ApplicationRecord
     Digest::SHA1.hexdigest(id.to_s)
   end
 
-  def num_payrolls_processed
-
+  def self.num_payrolls_processed
+    where('processing_timestamp > ?', MINUTES_GAP.minutes.ago).count
   end
 end
