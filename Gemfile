@@ -69,3 +69,5 @@ gem 'rails_12factor', group: :production
 source 'https://348cea99502512a1f686d98c4466220b@gemstash.zp-int.com/private/' do
   gem 'kafka-rails', '~> 0.7.12'
 end
+
+gem 'particlerb', '~> 1.4.0'
