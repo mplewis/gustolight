@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  company_id_hash: MyString
+  processing_timestamp: 2018-05-09 19:39:16
+
+two:
+  company_id_hash: MyString
+  processing_timestamp: 2018-05-09 19:39:16
