@@ -15,7 +15,11 @@ class PayrollEvent < ApplicationRecord
     find_or_create_by!(company_id_hash: hash_id(company_id), timestamp: payroll_processing_last_modified)
   end
 
-  def hash_id(id)
+  def self.hash_id(id)
     Digest::SHA1.hexdigest(id)
+  end
+
+  def num_payrolls_processed
+
   end
 end
