@@ -15,6 +15,7 @@ class PayrollEvent < ApplicationRecord
 
     find_or_create_by!(company_id_hash: hash_id(company_id), processing_timestamp: payroll_processing_last_modified)
     DeviceEmitter.emit!(num_payrolls_processed)
+    cleanup
   end
 
   def self.hash_id(id)
@@ -23,5 +24,9 @@ class PayrollEvent < ApplicationRecord
 
   def self.num_payrolls_processed
     where('processing_timestamp > ?', MINUTES_GAP.minutes.ago).count
+  end
+
+  def self.cleanup
+    where('processing_timestamp < ?', (2*MINUTES_GAP).minutes.ago).delete_all
   end
 end
