@@ -11,7 +11,7 @@ class PayrollEvent < ApplicationRecord
     payroll_processing_status = message['payroll_processing_status']
     company_id = message['id']
 
-    if PROCESSING_STATUSES.include?(payroll_processing_status) && (payroll_processing_last_modified > (2*MINUTES_GAP).minutes.ago)
+    if PROCESSING_STATUSES.include?(payroll_processing_status) && (payroll_processing_last_modified > (10*MINUTES_GAP).minutes.ago)
       find_or_create_by!(company_id_hash: hash_id(company_id), processing_timestamp: payroll_processing_last_modified) do |event|
         # if you got in here, this is a new event
         DeviceEmitter.g_pulse!(1)
@@ -30,6 +30,6 @@ class PayrollEvent < ApplicationRecord
   end
 
   def self.cleanup
-    where('processing_timestamp < ?', (2*MINUTES_GAP).minutes.ago).delete_all
+    where('processing_timestamp < ?', (10*MINUTES_GAP).minutes.ago).delete_all
   end
 end
