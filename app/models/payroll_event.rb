@@ -12,7 +12,10 @@ class PayrollEvent < ApplicationRecord
     company_id = message['id']
 
     if PROCESSING_STATUSES.include?(payroll_processing_status) && (payroll_processing_last_modified > (2*MINUTES_GAP).minutes.ago)
-      find_or_create_by!(company_id_hash: hash_id(company_id), processing_timestamp: payroll_processing_last_modified)
+      find_or_create_by!(company_id_hash: hash_id(company_id), processing_timestamp: payroll_processing_last_modified) do |event|
+        # if you got in here, this is a new event
+        DeviceEmitter.g_pulse!(1)
+      end
     end
     DeviceEmitter.emit!(num_payrolls_processed)
     cleanup
