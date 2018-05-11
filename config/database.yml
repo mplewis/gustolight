@@ -6,7 +6,7 @@ default: &default
 
 development:
   <<: *default
-  database: lightwell_development
+  database: gustolight_development
   username: root
   host: localhost
   port: 5432
@@ -17,7 +17,7 @@ development:
 <% if ENV['DOCKER'] %>
 test:
   <<: *default
-  database: lightwell_test
+  database: gustolight_test
   username: root
   host: db
   username: <%= ENV['DB_USER'] %>
@@ -25,7 +25,7 @@ test:
 <% else %>
 test:
   <<: *default
-  database: lightwell_test
+  database: gustolight_test
   username: root
   host: localhost
   port: 5432

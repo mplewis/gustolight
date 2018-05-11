@@ -1,16 +1,16 @@
 # require 'kafka/datadog'
 # require 'metrics/errors/notifications_manager'
 
-# Kafka::Datadog.namespace = 'lightwell.kafka'
+# Kafka::Datadog.namespace = 'gustolight.kafka'
 # Kafka::Datadog.host = ENV['DATADOG_AGENT_HOST']
 # Kafka::Datadog.port = ENV['DATADOG_AGENT_PORT']
 require_dependency 'payroll_event'
 
 KafkaRails.configure do |config|
   # config.enabled      = Config.kafka.enabled
-  config.topic_prefix = 'lightwell'
-  config.client_id    = 'lightwell'
-  config.consumer_group = 'lightwell'
+  config.topic_prefix = 'gustolight'
+  config.client_id    = 'gustolight'
+  config.consumer_group = 'gustolight'
 
   config.seed_brokers         = ENV['KAFKA_URL']
   config.ssl_ca_cert          = ENV['KAFKA_TRUSTED_CERT']
