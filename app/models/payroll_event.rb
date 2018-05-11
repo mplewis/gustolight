@@ -11,10 +11,9 @@ class PayrollEvent < ApplicationRecord
     payroll_processing_status = message['payroll_processing_status']
     company_id = message['id']
 
-    return unless PROCESSING_STATUSES.include?(payroll_processing_status)
-    return unless (payroll_processing_last_modified > (2*MINUTES_GAP).minutes.ago)
-
-    find_or_create_by!(company_id_hash: hash_id(company_id), processing_timestamp: payroll_processing_last_modified)
+    if PROCESSING_STATUSES.include?(payroll_processing_status) && (payroll_processing_last_modified > (2*MINUTES_GAP).minutes.ago)
+      find_or_create_by!(company_id_hash: hash_id(company_id), processing_timestamp: payroll_processing_last_modified)
+    end
     DeviceEmitter.emit!(num_payrolls_processed)
     cleanup
   end
