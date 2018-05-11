@@ -4,7 +4,7 @@ class PayrollEvent < ApplicationRecord
   consume_from_kafka KAFKA_TOPIC
 
   PROCESSING_STATUSES = ['Processed', 'Processed and Unfunded'].freeze
-  MINUTES_GAP = 20
+  MINUTES_GAP = 60
 
   def self.consume(topic, message)
     payroll_processing_last_modified = message['payroll_processing_last_modified'] && DateTime.parse(message['payroll_processing_last_modified'])
