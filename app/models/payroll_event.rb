@@ -4,7 +4,7 @@ class PayrollEvent < ApplicationRecord
   consume_from_kafka KAFKA_TOPIC
 
   PROCESSING_STATUSES = ['Processed', 'Processed and Unfunded'].freeze
-  LOOKBACK_MINUTES = 60
+  LOOKBACK_MINUTES = 120
   CLEANUP_HOURS = 48
 
   def self.consume(topic, message)
