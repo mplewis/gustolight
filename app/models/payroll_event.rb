@@ -4,14 +4,15 @@ class PayrollEvent < ApplicationRecord
   consume_from_kafka KAFKA_TOPIC
 
   PROCESSING_STATUSES = ['Processed', 'Processed and Unfunded'].freeze
-  MINUTES_GAP = 60
+  LOOKBACK_MINUTES = 60
+  CLEANUP_HOURS = 48
 
   def self.consume(topic, message)
-    payroll_processing_last_modified = message['payroll_processing_last_modified'] && DateTime.parse(message['payroll_processing_last_modified'])
+    payroll_processing_last_modified = message['payroll_processing_last_modified'] && Time.zone.parse(message['payroll_processing_last_modified'])
     payroll_processing_status = message['payroll_processing_status']
     company_id = message['id']
 
-    if PROCESSING_STATUSES.include?(payroll_processing_status) && (payroll_processing_last_modified > (10*MINUTES_GAP).minutes.ago)
+    if PROCESSING_STATUSES.include?(payroll_processing_status) && (payroll_processing_last_modified > CLEANUP_HOURS.hours.ago)
       find_or_create_by!(company_id_hash: hash_id(company_id), processing_timestamp: payroll_processing_last_modified) do |event|
         # if you got in here, this is a new event
         DeviceEmitter.g_pulse!(1)
@@ -26,10 +27,10 @@ class PayrollEvent < ApplicationRecord
   end
 
   def self.num_payrolls_processed
-    where('processing_timestamp > ?', MINUTES_GAP.minutes.ago).count
+    where('processing_timestamp > ?', LOOKBACK_MINUTES.minutes.ago).count
   end
 
   def self.cleanup
-    where('processing_timestamp < ?', (10*MINUTES_GAP).minutes.ago).delete_all
+    where('processing_timestamp < ?', CLEANUP_HOURS.hours.ago).delete_all
   end
 end
