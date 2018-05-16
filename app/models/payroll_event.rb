@@ -16,10 +16,10 @@ class PayrollEvent < ApplicationRecord
       find_or_create_by!(company_id_hash: hash_id(company_id), processing_timestamp: payroll_processing_last_modified) do |event|
         # if you got in here, this is a new event
         DeviceEmitter.g_pulse!(1)
+        DeviceEmitter.emit!(num_payrolls_processed)
+        cleanup
       end
     end
-    DeviceEmitter.emit!(num_payrolls_processed)
-    cleanup
   end
 
   def self.hash_id(id)
