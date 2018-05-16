@@ -4,8 +4,8 @@ class PayrollEvent < ApplicationRecord
   consume_from_kafka KAFKA_TOPIC
 
   PROCESSING_STATUSES = ['Processed', 'Processed and Unfunded'].freeze
-  LOOKBACK_MINUTES = 120
-  CLEANUP_HOURS = 48
+  LOOKBACK_MINUTES = 60
+  CLEANUP_HOURS = 4
 
   def self.consume(topic, message)
     payroll_processing_last_modified = message['payroll_processing_last_modified'] && Time.zone.parse(message['payroll_processing_last_modified'])
@@ -15,9 +15,11 @@ class PayrollEvent < ApplicationRecord
     if PROCESSING_STATUSES.include?(payroll_processing_status) && (payroll_processing_last_modified > CLEANUP_HOURS.hours.ago)
       find_or_create_by!(company_id_hash: hash_id(company_id), processing_timestamp: payroll_processing_last_modified) do |event|
         # if you got in here, this is a new event
-        DeviceEmitter.g_pulse!(1)
-        DeviceEmitter.emit!(num_payrolls_processed)
-        cleanup
+        if payroll_processing_last_modified >= LOOKBACK_MINUTES.minutes.ago
+          DeviceEmitter.g_pulse!(1)
+          DeviceEmitter.emit!(num_payrolls_processed)
+          cleanup
+        end
       end
     end
   end
